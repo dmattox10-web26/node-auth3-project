@@ -43,10 +43,6 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.get('/logout', (req, res) => {
-  
-})
-
 router.get('/users', auth, (req, res) => {
     Users.find()
         .then(users => {
