@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const Users = require('../models/users')
+const auth = require('../middleware/auth')
 
 router.post('/register', (req, res) => {
   let user = req.body
@@ -46,8 +47,14 @@ router.get('/logout', (req, res) => {
   
 })
 
-router.get('/users', (req, res) => {
-
+router.get('/users', auth, (req, res) => {
+    Users.find()
+        .then(users => {
+            res.json(users)
+        })
+        .catch(err => {
+            res.send(err)
+        })
 })
 
 function generateToken(user) {
